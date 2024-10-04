@@ -1,0 +1,75 @@
+# Create four vectors
+names <- c("Alice", "Bob", "Charlie", "David")
+ages <- c(23, 25, 22, 30)
+addresses <- c("123 Maple St", "456 Oak St", "789 Pine St", "101 Birch St")
+scores <- c(85, 90, 78, 88)
+
+# Create a data frame from the vectors
+student_data <- data.frame(
+  Name = names,
+  Age = ages,
+  Address = addresses,
+  Score = scores
+)
+
+# Display the data frame
+print("Student Data Frame:")
+print(student_data)
+
+
+
+
+py----
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import AgglomerativeClustering
+
+# Step 1: Load the dataset
+df = pd.read_csv('Customer.csv')
+
+# Display the first few rows of the dataset
+print("Dataset Preview:")
+print(df.head())
+
+# Step 2: Data preprocessing
+# Assuming we are interested in clustering based on certain numerical features
+# Let's say the dataset has 'Annual Income' and 'Spending Score' columns
+# Adjust the feature names according to your dataset
+features = df[['Annual Income (k$)', 'Spending Score (1-100)']]
+
+# Step 3: Standardize the features
+scaler = StandardScaler()
+scaled_features = scaler.fit_transform(features)
+
+# Step 4: Apply Hierarchical Agglomerative Clustering
+# Perform hierarchical clustering
+linked = linkage(scaled_features, method='ward')
+
+# Step 5: Visualize the dendrogram
+plt.figure(figsize=(10, 7))
+dendrogram(linked, orientation='top', distance_sort='descending', show_leaf_counts=True)
+plt.title('Dendrogram for Hierarchical Clustering')
+plt.xlabel('Customer Index')
+plt.ylabel('Euclidean distances')
+plt.show()
+
+# Optional: Fit Agglomerative Clustering to the data
+# You can choose the number of clusters based on the dendrogram
+agglo_clustering = AgglomerativeClustering(n_clusters=5)  # Adjust n_clusters as needed
+labels = agglo_clustering.fit_predict(scaled_features)
+
+# Step 6: Visualizing the clusters
+plt.figure(figsize=(10, 7))
+sns.scatterplot(x=features['Annual Income (k$)'], y=features['Spending Score (1-100)'], hue=labels, palette='viridis')
+plt.title('Customer Segments')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend(title='Cluster')
+plt.show()
