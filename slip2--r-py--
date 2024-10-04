@@ -1,0 +1,46 @@
+number <- as.integer(readline(prompt = "Please Enter a Number for Table: ")) 
+Disp_table(number) 
+Disp_table=function(number) 
+{
+ for( t in 1:10) 
+ { 
+ print ( paste ( number, '*', t, '=', number * t)) 
+ } 
+} 
+
+
+
+py----
+
+# Import necessary libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+
+# Step 1: Generate a synthetic dataset
+# Parameters: n_samples (number of points), centers (number of clusters), cluster_std (standard deviation)
+X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=42)
+
+# Step 2: Apply k-means clustering
+# Define number of clusters (k)
+kmeans = KMeans(n_clusters=4)
+
+# Fit the model to the data and predict the clusters
+kmeans.fit(X)
+y_kmeans = kmeans.predict(X)
+
+# Step 3: Plot the results
+# Plot the data points and color them based on their cluster labels
+plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=50, cmap='viridis')
+
+# Plot the centroids of the clusters
+centroids = kmeans.cluster_centers_
+plt.scatter(centroids[:, 0], centroids[:, 1], s=200, c='red', marker='x', label='Centroids')
+
+# Add title and labels
+plt.title('K-means Clustering')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.legend()
+plt.show()
