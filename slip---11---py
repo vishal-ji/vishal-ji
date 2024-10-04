@@ -1,0 +1,70 @@
+# Define the two lists
+list1 <- list("x", "y", "z")
+list2 <- list("X", "Y", "Z", "x", "y", "z")
+
+# Convert lists to character vectors for comparison
+vector1 <- unlist(list1)
+vector2 <- unlist(list2)
+
+# Find elements in vector1 that are not in vector2
+difference <- setdiff(vector1, vector2)
+
+# Display the result
+cat("Elements in the first list that are not in the second list:", difference, "\n")
+
+
+
+py---=-
+
+
+
+pip install pandas numpy matplotlib scikit-learn
+
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
+
+# Step 1: Load the dataset
+url = "https://raw.githubusercontent.com/pycaret/pycaret/master/datasets/Wholesale%20customers.csv"
+data = pd.read_csv(url)
+
+# Display the first few rows of the dataset
+print(data.head())
+
+# Step 2: Preprocess the data
+# Remove the 'Channel' and 'Region' columns as they are categorical
+data = data.drop(['Channel', 'Region'], axis=1)
+
+# Standardize the data
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(data)
+
+# Step 3: Perform Hierarchical Clustering
+# Compute the linkage matrix
+linkage_matrix = linkage(scaled_data, method='ward')
+
+# Step 4: Plot the dendrogram
+plt.figure(figsize=(12, 8))
+dendrogram(linkage_matrix, leaf_rotation=90, leaf_font_size=10)
+plt.title('Dendrogram for Hierarchical Clustering')
+plt.xlabel('Samples')
+plt.ylabel('Distance')
+plt.show()
+
+# Step 5: Form flat clusters
+# You can choose a threshold distance to form clusters
+threshold = 15  # Adjust based on dendrogram
+clusters = fcluster(linkage_matrix, threshold, criterion='distance')
+
+# Add cluster labels to the original dataset
+data['Cluster'] = clusters
+
+# Display the number of samples in each cluster
+print("\nCluster sizes:")
+print(data['Cluster'].value_counts())
