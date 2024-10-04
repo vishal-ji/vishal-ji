@@ -1,0 +1,53 @@
+# Create a sequence of numbers from 20 to 50
+sequence_20_to_50 <- 20:50
+
+# Print the sequence
+cat("Sequence from 20 to 50:", sequence_20_to_50, "\n")
+
+# Calculate the mean of numbers from 20 to 60
+mean_20_to_60 <- mean(20:60)
+cat("Mean of numbers from 20 to 60:", mean_20_to_60, "\n")
+
+# Calculate the sum of numbers from 51 to 91
+sum_51_to_91 <- sum(51:91)
+cat("Sum of numbers from 51 to 91:", sum_51_to_91, "\n")
+
+
+py----
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Step 1: Prepare the data
+x = np.array([1, 2, 3, 4, 5, 6, 7, 8]).reshape(-1, 1)  # Reshape for sklearn
+y = np.array([7, 14, 15, 18, 19, 21, 26, 23])
+
+# Step 2: Create and fit the model
+model = LinearRegression()
+model.fit(x, y)
+
+# Step 3: Calculate coefficients
+b0 = model.intercept_  # Intercept
+b1 = model.coef_[0]    # Slope
+
+print(f'Estimated coefficients:\nb0 (intercept): {b0}\nb1 (slope): {b1}')
+
+# Step 4: Make predictions
+y_pred = model.predict(x)
+
+# Step 5: Analyze the performance
+mse = mean_squared_error(y, y_pred)
+r_squared = r2_score(y, y_pred)
+
+print(f'\nPerformance Metrics:\nMean Squared Error: {mse:.2f}\nR-squared: {r_squared:.2f}')
+
+# Optional: Plot the results
+plt.scatter(x, y, color='blue', label='Actual Data')
+plt.plot(x, y_pred, color='red', label='Fitted Line')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Simple Linear Regression')
+plt.legend()
+plt.show()
