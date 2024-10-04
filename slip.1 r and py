@@ -1,0 +1,61 @@
+# Define two integer-type vectors with a minimum length of 4
+vector1 <- c(8L, 12L, 16L, 20L)
+vector2 <- c(2L, 4L, 8L, 10L)
+
+# Perform element-wise addition
+add_result <- vector1 + vector2
+
+# Perform element-wise multiplication
+multiply_result <- vector1 * vector2
+
+# Perform element-wise division
+divide_result <- vector1 / vector2
+
+# Print the results
+cat("Addition of vectors:\n", add_result, "\n")
+cat("Multiplication of vectors:\n", multiply_result, "\n")
+cat("Division of vectors:\n", divide_result, "\n")
+
+
+
+
+python----
+
+# Import necessary libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import numpy as np
+
+# Load dataset (replace 'student_data.csv' with the actual path of your file)
+# Assuming the dataset has 'Hours' and 'Scores' columns
+dataset = pd.read_csv('student_data.csv')
+
+# Split data into features (X) and target (y)
+X = dataset[['Hours']]  # Feature (independent variable)
+y = dataset['Scores']   # Target (dependent variable)
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the linear regression model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on test set
+y_pred = model.predict(X_test)
+
+# Calculate Mean Absolute Error (MAE)
+mae = mean_absolute_error(y_test, y_pred)
+
+# Calculate Mean Squared Error (MSE)
+mse = mean_squared_error(y_test, y_pred)
+
+# Calculate Root Mean Squared Error (RMSE)
+rmse = np.sqrt(mse)
+
+# Print the results
+print(f"Mean Absolute Error (MAE): {mae}")
+print(f"Mean Squared Error (MSE): {mse}")
+print(f"Root Mean Squared Error (RMSE): {rmse}")
