@@ -1,0 +1,62 @@
+# Create a numeric vector
+numbers <- c(10, 5, 20, 3, 15, 8)
+
+# Step 1: Find the maximum value
+max_value <- max(numbers)
+
+# Step 2: Find the minimum value
+min_value <- min(numbers)
+
+# Step 3: Display the results
+cat("The maximum value is:", max_value, "\n")
+cat("The minimum value is:", min_value, "\n")
+
+
+
+py-----
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Step 1: Define the data
+x = np.array([1, 2, 3, 4, 5, 6, 7, 8]).reshape(-1, 1)  # Reshape for sklearn
+y = np.array([7, 14, 15, 18, 19, 21, 26, 23])
+
+# Step 2: Create the linear regression model
+model = LinearRegression()
+
+# Step 3: Fit the model to the data
+model.fit(x, y)
+
+# Step 4: Retrieve the coefficients
+b0 = model.intercept_  # Intercept
+b1 = model.coef_[0]    # Slope
+
+print(f"Estimated coefficients:")
+print(f"b0 (Intercept): {b0:.2f}")
+print(f"b1 (Slope): {b1:.2f}")
+
+# Step 5: Make predictions
+y_pred = model.predict(x)
+
+# Analyze the performance of the model
+mse = mean_squared_error(y, y_pred)
+r2 = r2_score(y, y_pred)
+
+print(f"\nPerformance Metrics:")
+print(f"Mean Squared Error (MSE): {mse:.2f}")
+print(f"R-squared (R²): {r2:.2f}")
+
+# Optional: Plotting the results
+plt.scatter(x, y, color='blue', label='Data Points')
+plt.plot(x, y_pred, color='red', label='Regression Line')
+plt.title('Simple Linear Regression')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.grid()
+plt.show()
