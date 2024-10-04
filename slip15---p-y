@@ -1,0 +1,50 @@
+# Create two integer vectors
+vector1 <- c(10, 20, 30, 40)
+vector2 <- c(2, 5, 10, 20)
+
+# Addition of the two vectors
+addition_result <- vector1 + vector2
+
+# Multiplication of the two vectors
+multiplication_result <- vector1 * vector2
+
+# Division of the two vectors
+# Note: Ensure no division by zero (not an issue here as vector2 has no zeros)
+division_result <- vector1 / vector2
+
+# Display the results
+cat("Vector 1:", vector1, "\n")
+cat("Vector 2:", vector2, "\n")
+cat("Addition Result:", addition_result, "\n")
+cat("Multiplication Result:", multiplication_result, "\n")
+cat("Division Result:", division_result, "\n")
+
+
+
+py------
+
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+# Step 1: Load the dataset
+data = pd.read_csv('shows.csv')
+
+# Step 2: Define features and target variable
+X = data[['Age', 'Experience', 'Ranking']]  # Features
+y = data['Label']                            # Target variable
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Create and fit the Decision Tree Classifier
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+# Step 5: Predict the class label for a 40 years old American comedian
+new_data = [[40, 10, 7]]  # [Age, Experience, Ranking]
+prediction = model.predict(new_data)
+
+# Step 6: Display the prediction
+print(f"The predicted class label for the show starring a 40 years old American comedian is: {prediction[0]}")
