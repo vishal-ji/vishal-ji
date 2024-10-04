@@ -1,0 +1,63 @@
+# Function to find the maximum and minimum values of a vector
+find_max_min <- function(vec) {
+  max_value <- max(vec)
+  min_value <- min(vec)
+  return(list(max = max_value, min = min_value))
+}
+
+# Main program
+cat("Enter the elements of the vector separated by spaces:\n")
+input <- scan(what = numeric(), nmax = 100)  # Read numeric input
+result <- find_max_min(input)
+
+# Display the results
+cat("Maximum value:", result$max, "\n")
+cat("Minimum value:", result$min, "\n")
+
+
+py----
+
+pip install pandas mlxtend
+
+
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# Step 1: Load the dataset
+data = pd.read_csv('Iris.csv')
+
+# Display the first few rows of the dataset
+print(data.head())
+
+# Step 2: Preprocess the data
+# Convert continuous variables into categorical
+def discretize(x):
+    if x < 2:
+        return 'low'
+    elif x < 5:
+        return 'medium'
+    else:
+        return 'high'
+
+data['SepalLength'] = data['SepalLengthCm'].apply(discretize)
+data['SepalWidth'] = data['SepalWidthCm'].apply(discretize)
+data['PetalLength'] = data['PetalLengthCm'].apply(discretize)
+data['PetalWidth'] = data['PetalWidthCm'].apply(discretize)
+
+# Step 3: Create a transactional format
+# Create a DataFrame where each row is a combination of the discretized features
+transactions = data[['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth']].apply(lambda x: ' '.join(x), axis=1)
+transactions_df = transactions.str.get_dummies(sep=' ')
+
+# Step 4: Apply the Apriori algorithm
+frequent_itemsets = apriori(transactions_df, min_support=0.1, use_colnames=True)
+
+# Step 5: Generate the association rules
+rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
+
+# Display the frequent itemsets and rules
+print("\nFrequent Itemsets:")
+print(frequent_itemsets)
+
+print("\nAssociation Rules:")
+print(rules)
