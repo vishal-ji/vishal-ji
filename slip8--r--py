@@ -1,0 +1,54 @@
+Fibonacci <- numeric(20)
+Fibonacci[1] <- Fibonacci[2] <- 1
+for (i in 3:10) Fibonacci[i] <- Fibonacci[i - 2] + Fibonacci[i - 1]
+print("First 10 Fibonacci numbers:")
+print(Fibonacci)
+
+
+
+py---
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Step 1: Load the dataset
+data = pd.read_csv('CC GENERAL.csv')
+
+# Step 2: Data Preprocessing
+# Check for null values and fill them if necessary
+data.fillna(0, inplace=True)
+
+# Select relevant features (excluding customer ID and any non-numeric fields)
+features = data.iloc[:, 1:]  # Exclude the first column which is customer ID
+
+# Step 3: Standardize the features
+scaler = StandardScaler()
+scaled_features = scaler.fit_transform(features)
+
+# Step 4: Implement K-means
+# Choose the number of clusters (k)
+k = 5  # You can adjust this based on your analysis
+
+kmeans = KMeans(n_clusters=k, random_state=42)
+kmeans.fit(scaled_features)
+
+# Step 5: Add cluster labels to the original data
+data['Cluster'] = kmeans.labels_
+
+# Step 6: Visualizing the Clusters
+# For visualization, we will use the first two features
+plt.figure(figsize=(10, 6))
+plt.scatter(data.iloc[:, 1], data.iloc[:, 2], c=data['Cluster'], cmap='viridis', alpha=0.5)
+plt.title('K-means Clustering of Credit Card Data')
+plt.xlabel('Feature 1')  # Change to the actual feature name
+plt.ylabel('Feature 2')  # Change to the actual feature name
+plt.colorbar(label='Cluster')
+plt.show()
+
+# Optional: Print the cluster centers
+cluster_centers = scaler.inverse_transform(kmeans.cluster_centers_)
+print("Cluster Centers (Original Scale):")
+print(cluster_centers)
