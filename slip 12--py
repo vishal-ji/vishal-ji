@@ -1,0 +1,67 @@
+# Create a data frame with employee details
+employee_data <- data.frame(
+  empno = c(1, 2, 3, 4, 5),
+  empname = c("Alice", "Bob", "Charlie", "David", "Eva"),
+  gender = c("Female", "Male", "Male", "Male", "Female"),
+  age = c(28, 34, 29, 45, 26),
+  designation = c("Manager", "Developer", "Designer", "Analyst", "Intern"),
+  stringsAsFactors = FALSE  # Prevents automatic conversion of strings to factors
+)
+
+# Display the employee details
+print("Employee Details:")
+print(employee_data)
+
+
+
+py-------
+
+
+pip install pandas numpy matplotlib scikit-learn
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Step 1: Load the dataset
+url = "https://www.w3schools.com/python/datasets/cars.csv"
+data = pd.read_csv(url)
+
+# Display the first few rows of the dataset
+print(data.head())
+
+# Step 2: Preprocess the data
+# Convert categorical variables to dummy variables
+data = pd.get_dummies(data, drop_first=True)
+
+# Step 3: Define features and target variable
+# Assuming 'Price' is the target variable and the rest are features
+X = data.drop('Price', axis=1)  # Features
+y = data['Price']                 # Target variable
+
+# Step 4: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 5: Create and fit the Multiple Linear Regression model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Step 6: Make predictions
+y_pred = model.predict(X_test)
+
+# Step 7: Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+r_squared = r2_score(y_test, y_pred)
+
+print(f'\nMean Squared Error: {mse:.2f}')
+print(f'R-squared: {r_squared:.2f}')
+
+# Optional: Display coefficients
+coefficients = pd.DataFrame(model.coef_, X.columns, columns=['Coefficient'])
+print("\nCoefficients:")
+print(coefficients)
