@@ -1,0 +1,44 @@
+slip 13
+Q1. Draw a pie chart using R programming for the following datadistribution:
+Digits on
+Dice
+1 2 3 4 5 6 Frequency of getting each number7 2 6 3 4 8
+# Create data for the graph.
+dice<- c(7, 2, 6, 3, 4, 8)
+labels <- c("1", "2", "3", "4","5","6")
+# Plot the chart.
+pie(dice, labels)
+
+Q2. Write a Python program to read “StudentsPerformance.csv” file. Solvefollowing:
+- To display the shape of dataset.
+- To display the top rows of the dataset with their columns.Note: Download
+dataset from following link :
+(https://www.kaggle.com/spscientist/students-performance-inexams?
+select=StudentsPerformance.csv)
+import pandas
+from sklearn import linear_model
+df = pandas.read_csv("car.csv")
+X = df[['Weight', 'Volume']]
+y = df['CO2']
+regr = linear_model.LinearRegression()
+regr.fit(X, y)
+#predict the CO2 emission of a car where the weight is 2300kg, and the volume is 1300cm3:
+predictedCO2 = regr.predict([[2300, 1300]])
+print(predictedCO2)
+"outputs": [] 
+}, 
+{ 
+"cell_type": "code", 
+"source": [ 
+"# To display the number of columns and names of the columns. (By using columns 
+method)\n", 
+"store_data.columns()" 
+], 
+"metadata": { 
+"id": "ZdXc3aoUHO80" 
+}, 
+"execution_count": null, 
+"outputs": [] 
+} 
+] 
+}
